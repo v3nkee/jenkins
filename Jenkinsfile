@@ -20,6 +20,19 @@ pipeline {
                 ls -la 
                 '''
             }
+            
+        }
+        stage('test'){
+            steps{
+            sh'''
+            echo "test stage ..."
+            ls
+            cd build
+            test index.html
+            npm test
+            a
+            '''
+            }
         }
     }
 }
