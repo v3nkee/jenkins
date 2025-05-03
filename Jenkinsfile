@@ -30,7 +30,7 @@ pipeline {
             cd build
             test index.html
             npm test
-            a
+            
             '''
             }
         }
