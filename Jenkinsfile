@@ -24,7 +24,7 @@ pipeline {
         always {
             // For example: archive test results
             junit 'test-examples/results.xml'
-            echo 'Post actions completed.'
+            echo 'Post actions codsmpleted.'
         }
     }
 }
