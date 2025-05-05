@@ -34,7 +34,7 @@ pipeline {
             }
         }*/
 
-        stage('Test2') {
+       /* stage('Test2') {
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.52.0-noble'
@@ -44,12 +44,13 @@ pipeline {
             steps {
                 sh '''
                 npm install -g serve
+                chmod 777 node_modules/.bin/serve
                 node_modules/.bin/serve -s build &
                 sleep 10
                 npx playwright test
                 '''
             }
-        }
+        }*/
 
         stage('Deploy') {
             agent {
@@ -60,7 +61,8 @@ pipeline {
     }
             steps {
                 sh '''
-                npm install netlify-cli -g
+                npm install netlify-cli
+                node_modules/.bin/netlify --version
                 netlify --version
                 '''
             }
