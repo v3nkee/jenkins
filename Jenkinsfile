@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-       /* stage('Build') {
+        stage('Build') {
             agent {
         docker {
             image 'node:18-alpine'
@@ -32,9 +32,9 @@ pipeline {
                     echo 'Post actions completed.'
                 }
             }
-        }*/
+        }
 
-         stage('Test2') {
+         /*stage('Test2') {
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.52.0-noble'
@@ -48,9 +48,9 @@ pipeline {
                 npx playwright test
                 '''
             }
-        }
+        }*/
 
-      /*  stage('Deploy') {
+        stage('Deploy') {
             agent {
         docker {
             image 'node:18-alpine'
@@ -64,6 +64,6 @@ pipeline {
                 
                 '''
             }
-        }*/
+        }
     }
 }
