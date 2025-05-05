@@ -1,5 +1,5 @@
 pipeline {
-    
+    agentany
 
     stages {
        /* stage('Build') {
