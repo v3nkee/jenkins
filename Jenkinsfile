@@ -1,26 +1,21 @@
 pipeline {
-    
+    agent {
+        docker {
+            image 'node:18-alpine'
+            reuseNode true
+        }
+    }
 
     stages {
         stage('Build') {
-            agent {
-        docker {
-            image 'node:18-alpine'
-            reuseNode true
-        }
-    }
-            steps {
+            
+         steps {
                 sh 'npm run build'
-            }
+              }
         }
 
         stage('Test') {
-            agent {
-        docker {
-            image 'node:18-alpine'
-            reuseNode true
-        }
-    }
+           
             steps {
                 sh 'npm test'
             }
@@ -38,7 +33,7 @@ pipeline {
                 docker{
                     image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
                     resuseNode true
-                }
+                } 
             }
             steps {
                 sh '''
@@ -49,8 +44,18 @@ pipeline {
                 '''
             }
         }
-    }
+         stage('Deploy') {
+            
+            steps {
+                sh '''
+                npm install netlify-cli -g
+                netlify --verion
+                '''
+            }
+        }
+     }
 
    
     
+    }
 }
