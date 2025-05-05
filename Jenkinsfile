@@ -24,9 +24,16 @@ pipeline {
             steps {
                 sh 'npm test'
             }
+
+             post {
+        always {
+            // For example: archive test results
+            junit 'jest-results/junit.xml'
+            echo 'Post actions codsmpleted.'
+        }
         }
 
-         stage('Test') {
+         stage('Test2') {
             agent{
                 docker{
                     image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
@@ -36,18 +43,14 @@ pipeline {
             steps {
                 sh '''
                 npm install -g serve
-                serve -s build
+                node_modules/.bin/serve -s build &
+                sleep 10
                 npx playwright test
                 '''
             }
         }
     }
 
-   /* post {
-        always {
-            // For example: archive test results
-            junit 'test-examples/results.xml'
-            echo 'Post actions codsmpleted.'
-        }
-    }*/
+   
+    
 }
