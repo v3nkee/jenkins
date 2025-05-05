@@ -43,10 +43,8 @@ pipeline {
             }
             steps {
                 sh '''
-                npm install -g serve
-                chmod 777 node_modules/.bin/serve
-                node_modules/.bin/serve -s build &
-                
+                npm install serve
+                node_modules\.bin\serve -s build &
                 npx playwright test
                 '''
             }
