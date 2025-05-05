@@ -8,32 +8,31 @@ pipeline {
 
     stages {
         stage('Build') {
-            
-         steps {
+            steps {
                 sh 'npm run build'
-              }
+            }
         }
 
         stage('Test') {
-           
             steps {
                 sh 'npm test'
             }
 
-             post {
-        always {
-            // For example: archive test results
-            junit 'jest-results/junit.xml'
-            echo 'Post actions codsmpleted.'
-        }
+            post {
+                always {
+                    // For example: archive test results
+                    junit 'test-results/junit.xml'
+                    echo 'Post actions completed.'
+                }
+            }
         }
 
-         stage('Test2') {
-            agent{
-                docker{
+        stage('Test2') {
+            agent {
+                docker {
                     image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
-                    resuseNode true
-                } 
+                    reuseNode true
+                }
             }
             steps {
                 sh '''
@@ -44,18 +43,14 @@ pipeline {
                 '''
             }
         }
-         stage('Deploy') {
-            
+
+        stage('Deploy') {
             steps {
                 sh '''
                 npm install netlify-cli -g
-                netlify --verion
+                netlify --version
                 '''
             }
         }
-     }
-
-   
-    
     }
 }
